@@ -1,0 +1,15 @@
+#######################################
+# ALIAS- Personal Mac
+#######################################
+
+search_tool="rg"
+
+
+source /Users/ahmadfahad/Documents/github/bashrc/bashlib/bashrc_general
+source /Users/ahmadfahad/Documents/github/bashrc/bashlib/bashrc_search
+source /Users/ahmadfahad/Documents/github/bashrc/bashlib/bashrc_personal
+source /Users/ahmadfahad/Documents/github/bashrc/bashlib/bashrc_version_control
+
+## source functions
+source /Users/ahmadfahad/Documents/github/bashrc/bashlib/bashrc_functions_search
+source /Users/ahmadfahad/Documents/github/bashrc/bashlib/bashrc_functions_general

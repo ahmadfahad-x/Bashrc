@@ -1,0 +1,60 @@
+if [ "$search_tool" == "grep" ]; then
+#######################################
+#GREP Related
+#######################################
+alias grepprocess='pgrep -U $USER'
+alias showpm='ps -ef | grep $USER'
+alias greperr='grep -ri --color *E'
+alias gerr='grep -ri --color *E'
+alias gerrf="gerr | grep -Eo --color '(\/.*\/)+\w+.sv\w*'"
+alias greperrl='grep -r --color *E logs.log'
+alias greperrl1='grep -r -m 1 --color *E logs.log'
+alias greperrll='grep -r -m 1 --color *E logs.log'
+alias greperrllf="grep -r -m 1 --color *E logs.log | grep -Eo --color '(\/.*\/)+\w+.sv\w*'"
+alias gerrl='grep -r --color *E logs.log'
+alias gerrl1='grep -r -m 1 --color *E logs.log'
+alias gerrll='grep -r -m 1 --color *E logs.log'
+alias gerrllf="grep -r -m 1 --color *E logs.log | grep -Eo --color '(\/.*\/)+\w+.sv\w*'"
+alias gerrllfn="gerrll | grep -Eo --color '([0-9]{0,3})\|' | grep -Eo --color '[0-9]*'"
+alias grepuvmerr='grep -ri --color UVM_ERROR'
+alias guvm='grep -ri --color UVM_ERROR'
+alias grepuvmerrl='grep -ri --color UVM_ERROR >& err.log'
+alias guvmerr='grep -ri --color UVM_ERROR'
+alias guvmerrl='grep -ri --color UVM_ERROR >& err.log'
+alias grephistory='history|grep'
+alias greph='history|grep'
+alias historyg='history|grep'
+alias hg='history|grep'
+alias grepherer="grep -rE --color"
+alias ghere="grep -rE --color"
+alias grr="grep -rE --color"
+alias gres='cat logs.log| grep --color REPORT\ WRITTEN; cat logs.log| grep --color -E TESTS.*=;'
+alias guvmw='cat logs.log | grep --color UVM_WARNING'
+else
+alias showpm='ps -ef | rg $USER'
+alias greperr='rg -p *E'
+alias gerr='rg -p *E'
+alias gerrf="gerr | rg -Eo -p '(\/.*\/)+\w+.sv\w*'"
+alias greperrl='rg -r -p *E logs.log'
+alias greperrl1='rg -r -m 1 -p *E logs.log'
+alias greperrll='rg -r -m 1 -p *E logs.log'
+alias greperrllf="rg -r -m 1 -p *E logs.log | rg -Eo -p '(\/.*\/)+\w+.sv\w*'"
+alias gerrl='rg -r -p *E logs.log'
+alias gerrl1='rg -r -m 1 -p *E logs.log'
+alias gerrll='rg -r -m 1 -p *E logs.log'
+alias gerrllf="rg -r -m 1 -p *E logs.log | rg -Eo -p '(\/.*\/)+\w+.sv\w*'"
+alias gerrllfn="gerrll | rg -Eo -p '([0-9]{0,3})\|' | rg -Eo -p '[0-9]*'"
+alias grepuvmerr='rg -p UVM_ERROR'
+alias guvm='rg -p UVM_ERROR'
+alias grepuvmerrl='rg -p UVM_ERROR >& err.log'
+alias guvmerr='rg -p UVM_ERROR'
+alias guvmerrl='rg -p UVM_ERROR >& err.log'
+alias grephistory='history|rg'
+alias greph='history|rg'
+alias historyg='history|rg'
+alias hg='history|rg'
+alias onetrc='code $HOME/.netrc'
+alias grepherer="rg -p -e "
+alias ghere="rg -p -e "
+alias grr="rg -p -e "
+fi

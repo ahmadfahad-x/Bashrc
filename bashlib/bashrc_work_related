@@ -1,0 +1,94 @@
+# source: http://nww.nxdi.nl-htc01.nxp.com/bin/view/NXDI/StartupScripts
+if tty -s
+then
+	stty erase ^? intr ^C kill ^U start ^Q stop ^S susp ^Z eof ^D
+	set -o emacs
+
+	# If you do not want bash command completion, comment it out.
+	# It completes file names, host names, env vars, command options.
+	# Please note, it slows down startup of an interactive shell.
+	# More info: http://www.caliban.org/bash/
+	if [[ -z "$BASH_COMPLETION" ]]
+	then
+	        export BASH_COMPLETION=$HOME/bash_completion/bash_completion
+	fi
+	if [[ -f "$BASH_COMPLETION" ]]
+	then
+	        . $BASH_COMPLETION
+	else
+		unset BASH_COMPLETION
+	fi
+
+	export MANWIDTH=90
+	H=$(hostname)
+	# Pick your favorite PS1
+        #export PS1="$LOGNAME@${H%%.*}\$ "
+        export PS1="$LOGNAME@${H%%.nxp.com}\$ "
+	export TERM=${TERM:-xterm}
+	export EDITOR=vi
+ 	export FCEDIT=${EDITOR}
+ 	export SERI_EDITOR=${EDITOR}
+ 	# export PAGER=/cadappl_sde/bin/pager
+
+	# Nijmegen special
+	if [[ -f ${HOME}/.bashrc.user ]]; then . ${HOME}/.bashrc.user; fi
+fi
+
+alias mypackage="cd $TOP_DIR/tb/zen_tb/testbench/packages_v/"
+alias mybin="cd $TOP_DIR"
+alias mydef= "cd $TOP_DIR/tb/zen_tb/testbench/top_defines_v/"
+alias olog='mybin;code logs.log;cd -'
+alias ologs='mybin;code logs.log;cd -'
+alias ologd='mybin;code -d bk_logs.log logs.log;cd -'
+alias ologc='mybin;cp logs.log bk_logs.log;cd -'
+alias ovcs='code $HOME/vcs.help &'
+
+# Directories
+alias mytop="cd $TOP_DIR/"
+alias mybin="cd $TOP_DIR/"
+alias mytbtop="cd $TOP_DIR/tb/zen_tb/testbench/top_instances_v"
+alias mytbdefines="cd $TOP_DIR/tb/zen_tb/rtl_v/"
+alias myrtldefines="cd $TOP_DIR/blocks/zenv_core/rtl_v"
+alias mytb="cd $TOP_DIR/tb/"
+alias myrtltop="cd $TOP_DIR/blocks/zenv_core/rtl_v/"
+alias myvectors="cd $TOP_DIR/tb/zen_tb/vectors"
+alias mypmp="cd $TOP_DIR/tb/zen_tb/vectors/pmp"
+alias mypmps="cd $TOP_DIR/tb/zen_tb/vectors/pmp/stimulus"
+alias mystim="cd $TOP_DIR/tb/zen_tb/vectors/"
+alias mysanity="cd $TOP_DIR/tb/zen_tb/vectors/sanity/stimulus"
+alias mypmpr="cd $TOP_DIR/tb/zen_tb/vectors/pmp/results"
+alias myrtl="cd $TOP_DIR/blocks/"
+alias myblocks="cd $TOP_DIR/blocks/"
+alias myclass="cd $TOP_DIR/tb/zen_tb/testbench/classes_v"
+alias mylog="cd $TOP_DIR/tb/zen_tb/logfiles/"
+alias myivc="cd $TOP_DIR/tb/global/testbench/drvmon"
+alias mychecker="cd $TOP_DIR/tb/zen_tb/testbench/classes_v"
+alias omychecker="code $TOP_DIR/tb/zen_tb/testbench/classes_v/pmp_checker.sv"
+alias omytbtop="code $TOP_DIR/tb/zen_tb/testbench/top_instances_v/top_uvm.sv"
+alias omytop="code $TOP_DIR/blocks/zenv_core/rtl_v/zenv_core.v"
+alias umytop="dsscontrol $TOP_DIR/tb/zen_tb/testbench/top_instances_v/top_uvm.sv"
+alias ochecker="code $TOP_DIR/tb/zen_tb/testbench/classes_v/pmp_checker.sv"
+alias myepmpc="cd $TOP_DIR/tb/zen_tb/vectors/c_epmp"
+alias myepmpcs="cd $TOP_DIR/tb/zen_tb/vectors/c_epmp/stimulus"
+
+## Firing commands
+alias runscrip="tcsh $TOP_DIR/tb/zen_tb/vectors/pmp/stimulus/scrip"
+alias hlog="tcsh -c 'set2750;sray add_zds_to_sim_log -x logs.log > hlogs.log'"
+alias clog="cp $TOP_DIR/logs.log $TOP_DIR/bk_logs.log"
+alias olog="code $TOP_DIR/logs.log"
+alias ohlog="code $TOP_DIR/hlogs.log"
+alias ofire="code $TOP_DIR/run_sim"
+alias oregress="code $TOP_DIR/run_regress"
+alias opat="code $TOP_DIR/tb/zen_tb/tool_data/simenv/suite/r5_passing"
+alias omyregress="code $TOP_DIR/tb/zen_tb/tool_data/simenv/suite/afahad_regress"
+alias unlockpat="dssc co -l $TOP_DIR/tb/zen_tb/tool_data/simenv/suite/r5_passing"
+alias lockpat="dssc ci $TOP_DIR/tb/zen_tb/tool_data/simenv/suite/r5_passing"
+alias firee="pushd $TOP_DIR;sray zengress -f r5_passing -bsub -q shortq -inc -sid zv0000_nodump -roc -w 20 -uvm_tb >& regress.log;popd"
+alias fireeo="pushd $TOP_DIR;code regress.log;sray zengress -f r5_passing -bsub -q shortq -inc -sid zv0000_nodump -roc -w 20 -uvm_tb >& regress.log;popd"
+
+# Verilog format
+alias svformat="verible-verilog-format -flagfile ~/.verilog_format --inplace"
+printf '\033[6 q'
+git config --global color.ui auto
+ekey
+fi

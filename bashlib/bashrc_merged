@@ -1,0 +1,12 @@
+purpose="personal"
+search_tool="grep"
+
+if [ "$purpose" == "work" ]; then
+    source bashrc_work_related
+fi
+if [ "$purpose" == "personal" ]; then
+    source bashrc_personal
+fi
+
+
+

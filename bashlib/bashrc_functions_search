@@ -1,0 +1,145 @@
+if [ "$search_tool" == "grep" ]; then
+    grio() {
+        echo Running command:
+        echo git fetch --all
+        git fetch --all
+        echo git rebase -i origin/$(git rev-parse --abbrev-ref HEAD)
+        git rebase -i origin/$(git rev-parse --abbrev-ref HEAD)
+    }
+
+    grephere() {
+        echo Running command:
+        echo grep -ri --color $1 .
+        grep -ri --color $1 .
+    }
+
+    grephere.() {
+        echo Running command:
+        echo grep -ri --color $1 ../.
+        grep -ri --color $1 ../.
+    }
+
+    grephere..() {
+        echo Running command:
+        echo grep -ri --color $1 ../../.
+        grep -ri --color $1 ../../.
+    }
+
+    grephere...() {
+        echo Running command:
+        echo grep -ri --color $1 ../../../.
+        grep -ri --color $1 ../../../.
+    }
+
+    grephere....() {
+        echo Running command:
+        echo grep -ri --color $1 ../../../../.
+        grep -ri --color $1 ../../../../.
+    }
+
+    grepherew() {
+        echo Running command:
+        echo grep -wri --color $1 .
+        grep -wri --color $1 .
+    }
+
+    gg() {
+        if [ $# -eq 2 ]; then
+            echo Running command:
+            echo "grep -r --color $1 . | grep $2"
+            grep -r --color $1 . | grep $2
+        elif [ $# -eq 1 ]; then
+            echo Running command:
+            echo "grep -r --color $1 ."
+            grep -r --color $1 .
+        else
+            echo Error: Supply atleast one argument
+        fi
+    }
+
+    gge() {
+        if [ $# -eq 2 ]; then
+            echo Running command:
+            echo "grep -r --color $1 . | egrep $2"
+            grep -r --color $1 . | egrep $2
+        elif [ $# -eq 1 ]; then
+            echo Running command:
+            echo "grep -r --color $1 ."
+            grep -r --color $1 .
+        else
+            echo Error: Supply atleast one argument
+        fi
+    }
+else
+    grio() {
+        echo Running command:
+        echo git fetch --all
+        git fetch --all
+        echo git rebase -i origin/$(git rev-parse --abbrev-ref HEAD)
+        git rebase -i origin/$(git rev-parse --abbrev-ref HEAD)
+    }
+
+    grephere() {
+        echo Running command:
+        echo rg $1 .
+        rg $1 .
+    }
+
+    grephere.() {
+        echo Running command:
+        echo rg $1 ../.
+        rg $1 ../.
+    }
+
+    grephere..() {
+        echo Running command:
+        echo rg $1 ../../.
+        rg $1 ../../.
+    }
+
+    grephere...() {
+        echo Running command:
+        echo rg $1 ../../../.
+        rg $1 ../../../.
+    }
+
+    grephere....() {
+        echo Running command:
+        echo rg $1 ../../../../.
+        rg $1 ../../../../.
+    }
+
+    grepherew() {
+        echo Running command:
+        echo rg -wri --color $1 .
+        rg -wri --color $1 .
+    }
+
+    gg() {
+        if [ $# -eq 2 ]; then
+            echo Running command:
+            echo "rg -r --color $1 . | rg $2"
+            rg -r --color $1 . | rg $2
+        elif [ $# -eq 1 ]; then
+            echo Running command:
+            echo "rg -r --color $1 ."
+            rg -r --color $1 .
+        else
+            echo Error: Supply at least one argument
+        fi
+    }
+
+    gge() {
+        if [ $# -eq 2 ]; then
+            echo Running command:
+            echo "rg -r --color $1 . | rg -E $2"
+            rg -r --color $1 . | rg -E $2
+        elif [ $# -eq 1 ]; then
+            echo Running command:
+            echo "rg -r --color $1 ."
+            rg -r --color $1 .
+        else
+            echo Error: Supply at least one argument
+        fi
+    }
+fi

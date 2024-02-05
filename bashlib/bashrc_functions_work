@@ -1,0 +1,85 @@
+
+fireh() {
+    pushd $TOP_DIR
+    $TOP_DIR/run_sim zv$1
+    hlog
+    popd
+}
+
+fire() {
+    pushd $TOP_DIR
+    $TOP_DIR/run_sim zv$1
+    popd
+}
+
+fireo() {
+    pushd $TOP_DIR
+    code logs.log
+    $TOP_DIR/run_sim zv$1
+    popd
+}
+
+firecod() {
+    pushd $TOP_DIR
+    cp logs.log bk_logs.log
+    code -d logs.log bk_logs.log
+    $TOP_DIR/run_sim zv$1
+    popd
+}
+
+fireocd() {
+    pushd $TOP_DIR
+    cp logs.log bk_logs.log
+    code -d logs.log bk_logs.log
+    $TOP_DIR/run_sim zv$1
+    popd
+}
+
+fireod() {
+    pushd $TOP_DIR
+    code -d logs.log bk_logs.log
+    $TOP_DIR/run_sim zv$1
+    popd
+}
+
+fireemyregress() {
+    pushd $TOP_DIR
+    $TOP_DIR/run_regress zv$1
+    popd
+}
+
+fmr() {
+    pushd $TOP_DIR
+    $TOP_DIR/run_regress zv$1
+    popd
+}
+
+fmrl() {
+    pushd $TOP_DIR
+    $TOP_DIR/run_regress zv$1 >&logs.log
+    popd
+}
+
+fireemyregressall() {
+    fireemyregress 2550
+    fireemyregress 2750
+    fireemyregress 2258
+    fireemyregress 2001
+    fireemyregress 2345
+    fireemyregress 2345
+}
+
+fmra() {
+    mybin
+    fireemyregressall
+}
+
+fmral() {
+    mybin
+    fireemyregressall >&logs.log
+}
+
+fmrla() {
+    mybin
+    fireemyregressall >&logs.log
+}

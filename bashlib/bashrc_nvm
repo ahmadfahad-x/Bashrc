@@ -1,0 +1,92 @@
+if [ "$work" == "nvm" ]; then
+#######################################
+#NVM WORK RELATED
+#######################################
+alias gotopython="cd /proj/nvm/c402t_hdfc/afahad_nfc/nvm_python_lib"
+alias delcov="myres;rm -r *cov*"
+alias mygen="myseq;cd seq_gen"
+alias rmrc="myres;rm -r *coverage*"
+alias mychecker="mytb; cd classes_v/checker_functions/"
+alias ocmdlib="mytb; code classes_v/cmd_lib/flc_cmd_base_seq.svh; cd -"
+alias omemtoolkit="mytb; code classes_v/flc_mem_toolkit.sv; cd -"
+alias obseq="myseq; code flc_se_base_seq.sv; cd -"
+alias oregress="mybin; code regress.log; cd -"
+alias oregressd="mybin; code -d bk_regress.log regress.log; cd -"
+alias oregressc="mybin; cp regress.log bk_regress.log; cd -"
+alias hrun="python3 $mybin/hb_error_parser.py --all"
+alias ohrun="mybin; code ./hb_error_parser.py; cd -"
+alias fireenightly="bkill -u nxf85776 0;mybin; ./nightly_run; cd-"
+alias ofireenightly="mybin; code ./nightly_run; cd-"
+alias lrun="python3 $mybin/nvm_linter.py -p . --all "
+alias lrun_uvm="python3 $mybin/nvm_linter.py -p . --all --uvm"
+alias lrun_lint="python3 $mybin/nvm_linter.py -p . --all --lint"
+alias rtsrun="python3 $mybin/remove_trailing_spaces.py"
+alias lrunall="python3 $mybin/nvm_linter.py --all"
+alias olrun="mybin; code ./log_converter.py; cd -"
+alias umyblocks="pushd;myblocks;dssc setvault sync://sync-15046:15046/Projects/nvm_ssrc/blocks .;dssc url vault .;dssc pop -uni -rec -force;popd"
+alias urtl="pushd;myblocks;dssc setvault sync://sync-15046:15046/Projects/nvm_ssrc/blocks .;dssc url vault .;dssc pop -uni -rec -force;popd"
+alias uverif="pushd .;echo updating $mytb/../../. ;cd $mytb/../../.;git pull origin develop;cd $mytb/../../../nvm_ecc_vip;echo updating $mytb/../../../nvm_ecc_vip;git pull origin develop;cd $mytb/../../../c28_luna_common;echo updating $mytb/../../../c28_luna_common;git pull origin develop; popd;"
+alias cresource="lsof +D /home/nvm_ssr/ssrc/afahad_workspace//c28_luna_se/luna_se_tb/tool_data/vcs/"
+alias clearres="lsof +D /home/nvm_ssr/ssrc/afahad_workspace//c28_luna_se/luna_se_tb/tool_data/vcs/"
+alias clearresource="lsof +D /home/nvm_ssr/ssrc/afahad_workspace//c28_luna_se/luna_se_tb/tool_data/vcs/"
+alias mydump="cd /home/nvm_ssr/ssrc/temp_dump/"
+alias myrtl="cd /home/nvm_ssr/ssrc/afahad_workspace/c28_luna_se/blocks/nvm_3m_c28ssrc_se_nxds/RTL/"
+alias fireo="mybin; code logs.log; gmake clean; ./afahad_run; cd -"
+alias fireod="mybin; code -d bk_logs.log logs.log; gmake clean; ./afahad_run; cd -"
+alias fireocd="mybin; cp logs.log bk_logs.log; code -d bk_logs.log logs.log; gmake clean; ./afahad_run; cd -"
+alias fireoc="mybin; cp logs.log bk_logs.log; code logs.log; gmake clean; ./afahad_run; cd -"
+alias fire="mybin; gmake clean; ./afahad_run; cd -"
+alias firemul="mybin; gmake clean; ./afahad_run_mul; cd -"
+alias firevcs="mybin; gmake clean; ./afahad_run_vcs; cd -"
+alias firec="mybin; cp logs.log bk_logs.log; gmake clean; ./afahad_run; cd -"
+alias firee="bkill -u nxf85776 0;mybin; ./afahad_regress; cd -"
+alias fireecov="bkill -u nxf85776 0;mybin; ./afahad_regressc; cd -"
+alias ofire="mybin; code ./afahad_run"
+alias ofiremul="mybin; code ./afahad_run_mul"
+alias ofiree="mybin; code ./afahad_regress; cd -"
+alias ofireecov="mybin; code ./afahad_regressc; cd -"
+alias fireemysmoke="bkill -u nxf85776 0;mybin; ./my_smoke; cd -"
+alias runmysmoke="bkill -u nxf85776 0;mybin; ./my_smoke; cd -"
+alias ofireemysmokes="mystim; code ./afahad.smoke; cd -"
+alias ofireemysmoke="mybin;code ./my_smoke; cd -"
+alias fireesmoke="mybin; ./smoke; cd -"
+alias ofireesmoke="mybin; code ./smoke; cd -"
+alias ofireesmokes="mystim; code ./pat_list.smoke; cd -"
+alias ofireemyregress="mybin; code ./my_regress; cd -"
+alias ofireemyregressc="mybin; code ./my_regressc; cd -"
+alias fireemyregress="bkill -u nxf85776 0;mybin; ./my_regress; cd -"
+alias fireemyregressc="bkill -u nxf85776 0;mybin; ./my_regressc; cd -"
+alias ofireemyregresss="mystim; code ./afahad.regress; cd -"
+alias ofirevcs="mybin; code ./afahad_run_vcs"
+alias gototb='cd /home/nvm_ssr/ssrc/afahad_workspace/'
+alias gtb='cd /home/nvm_ssr/ssrc/afahad_workspace/'
+alias ssme='pushd /home/nvm_ssr/ssrc/afahad_workspace/c28_luna_se/luna_se_tb/bin; source setup_file.txt; popd; export CADENV_HOME=/home/nxa18790; export PATH=/pkg/fs-foundation-/dynamic/bin:/run/pkg/foundation-/frame/bin:$PATH;'
+alias gotossrc='cd /home/nvm_ssr/ssrc'
+alias e1='eeprom 1'
+alias gncd='cd /home/eeprom/ccc/nxf85776/svn_proj/c28ssrc/ts_c28ssrc_se/TESTBENCH'
+alias gotodesign='cd /home/eeprom/ccc/nxf85776/svn_proj/c28ssrc/ts_c28ssrc_se/TESTBENCH'
+alias gotod='cd /home/eeprom/ccc/nxf85776/svn_proj/c28ssrc/ts_c28ssrc_se/TESTBENCH'
+alias gncv='cd /home/eeprom/ccc/nxf85776/data/id_sp2_block_rs_lib/nvm_4m_c28ssrc_se/nccoex'
+alias gotov='cd /home/eeprom/ccc/nxf85776/data/id_sp2_block_rs_lib/nvm_4m_c28ssrc_se/nccoex'
+alias gotoverification='cd /home/eeprom/ccc/nxf85776/data/id_sp2_block_rs_lib/nvm_4m_c28ssrc_se/nccoex'
+alias ofirees="mystim; code pat_list.comp; cd -"
+alias ofireenightlys="mystim; code pat_list.regress; cd -"
+alias ofireemysmokes="mystim; code afahad.smoke; cd -"
+alias bsimvt='bsub -Is simvision rundir_rtl_func_oob/traces/ &'
+#alias bsimvt='bsub -Is simvision rundir_rtl_func_oob/traces/ &;simvision -input /home/eeprom_workareas/ccc/nxf85776/data/id_sp2_block_rs_lib/simvision_luna.svcf'
+#alias bsimv='bsub -Is simvision &;simvision -input /home/eeprom_workareas/ccc/nxf85776/data/id_sp2_block_rs_lib/simvision_luna.svcf'
+#alias bsimv='bsub -Is simvision &;simvision -input /home/eeprom_workareas/ccc/nxf85776/data/id_sp2_block_rs_lib/simvision_luna.svcf'
+alias cad='cadenv'
+alias eeprom='/home/eeprom/bin/setup.project'
+alias llrt='ls -l -rt'
+alias ccc='/home/eeprom/ccc/$USER/svn_proj/ccc/bin/ccc'
+export PATH=.:$PATH
+alias settb='cd /home/eeprom/ccc/nxf85776/data/id_sp2_block_rs_lib/nvm_4m_c28ssrc_se/nccoex;. cadenv_home2 test.nvm_4m_c28ssrc_se'
+pushd /home/nvm_ssr/ssrc/afahad_workspace/c28_luna_se/luna_se_tb/bin; source setup_file.txt; popd;
+export CADENV_HOME=/home/nxa18790;
+export PATH=/pkg/fs-foundation-/dynamic/bin:/run/pkg/foundation-/frame/bin:$PATH;
+#pushd /proj/nvm/c402t_hdfc/afahad_nfc/c402t_hdfc_nfc/volta_nfc_tb/bin; source setup_file.txt; popd;
+alias drunme='pushd /home/eeprom/ccc/nxf85776/svn_proj/c28ssrc/ts_c28ssrc_se;sleep 1;ccc clean se;ccc make se;stty erase ^?; popd; ./run'
+alias runme='simvision -input $myres/luna_se.svcf $myres/*.shm &'
+alias runmel='cd .;sleep 1;./run >& logs.log'
+fi

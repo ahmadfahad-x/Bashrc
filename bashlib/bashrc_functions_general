@@ -1,0 +1,249 @@
+#######################################
+#Functions
+#######################################
+
+getdir() {
+    echo Running command:
+    echo ls -d -1 "$PWD/"$1
+    ls -d -1 "$PWD/"$1
+}
+
+showdir() {
+    echo Running command:
+    echo "$PWD/"$1
+}
+
+sdir() {
+    echo Running command:
+    echo "$PWD/"$1
+}
+
+sedsimple() {
+    echo Running command:
+    echo sed -i 's/'$1'/'$2'/g' $3
+    sed -i 's/'$1'/'$2'/g' $3
+}
+
+sedreg() {
+    echo Running command:
+    echo sed -iE 's/'$1'/'$2'/g' $3
+    sed -iE 's/'$1'/'$2'/g' $3
+}
+
+sedregv() {
+    echo Running command:
+    echo sed -iE 's/'$1'/'$2'/g' *.sv*
+    sed -iE 's/'$1'/'$2'/g' *.sv*
+}
+
+findhere() {
+    echo Running command:
+    echo find . -name "$1"
+    find . -name "$1"
+}
+
+fhere() {
+    echo Running command:
+    echo find . -name "$1"
+    find . -name "$1"
+}
+
+findherels() {
+    echo Running command:
+    echo find . -name "$1" -ls
+    find . -name "$1" -ls
+}
+
+findhered() {
+    echo Running command:
+    echo find . -type d -name "$1"
+    find . -type d -name "$1"
+}
+
+open_error() {
+    temp_file_name=$(grep -r -m 1 --color *E logs.log | grep -Eo --color '(\/.*\/)+\w+.\w*v\w*')
+    temp_file_num=$(gerrll | grep -Eo --color '([0-9]{0,10})\|' | grep -Eo --color '[0-9]*')
+    echo code -g $temp_file_name:$temp_file_num
+    code -g $temp_file_name:$temp_file_num
+}
+
+show_error() {
+    temp_file_name=$(grep -r -m 1 --color *E logs.log | grep -Eo --color '(\/.*\/)+\w+.\w*v\w*')
+    temp_file_num=$(gerrll | grep -Eo --color '([0-9]{0,10})\|' | grep -Eo --color '[0-9]*')
+    echo code -g $temp_file_name:$temp_file_num
+    code -g $temp_file_name:$temp_file_num
+}
+serror() {
+    temp_file_name=$(grep -r -m 1 --color *E logs.log | grep -Eo --color '(\/.*\/)+\w+.\w*v\w*')
+    temp_file_num=$(gerrll | grep -Eo --color '([0-9]{0,10})\|' | grep -Eo --color '[0-9]*')
+    echo code -g $temp_file_name:$temp_file_num
+    code -g $temp_file_name:$temp_file_num
+}
+serr() {
+    temp_file_name=$(grep -r -m 1 --color *E logs.log | grep -Eo --color '(\/.*\/)+\w+.\w*v\w*')
+    temp_file_num=$(gerrll | grep -Eo --color '([0-9]{0,10})\|' | grep -Eo --color '[0-9]*')
+    echo code -g $temp_file_name:$temp_file_num
+    code -g $temp_file_name:$temp_file_num
+}
+
+serrsemi() {
+    temp_file_name=$(grep -r -m 1 --color *E logs.log | grep -Eo --color '(\/.*\/)+\w+.\w*v\w*')
+    temp_file_num=$(gerrll | grep -Eo --color '([0-9]{0,10})\|' | grep -Eo --color '[0-9]*')
+    echo code -g $temp_file_name:$temp_file_num
+    # Add the semicolon to the specified line
+    echo sed -i "${temp_file_num}s/$/;/" "$temp_file_name"
+    sed -i "${temp_file_num}s/$/;/" "$temp_file_name"
+}
+
+findheredls() {
+    echo Running command:
+    echo find . -type d -name "$1" -ls
+    find . -type d -name "$1" -ls
+}
+makenote() {
+    echo Running command:
+    echo $@ >&note.txt
+    $@ >&note.txt
+}
+
+grbranch() {
+    echo Running command:
+    echo git rebase -i $(git rev-parse --abbrev-ref HEAD) $1
+    git rebase -i $(git rev-parse --abbrev-ref HEAD) $1
+}
+
+gbtrack() {
+    echo Running command:
+    echo git branch -u $1
+    git branch -u $1
+}
+
+gn() {
+    echo Running command:
+    if [ $# -eq 1 ]; then
+        echo git log --oneline -$1
+        git log --oneline -$1
+    else
+        echo git log --oneline
+        git log --oneline
+    fi
+}
+
+gcount() {
+    if [ $# -eq 2 ]; then
+        echo Running command:
+        echo grep -i -cn --color $1 $2
+        grep -i -cn --color $1 $2
+    else
+        echo Error: Supply atleast one argument
+    fi
+}
+
+delexcept() {
+    find . -type f ! -name '$1' -delete
+}
+
+gpurep() {
+    git reflog | grep ssh.*
+}
+
+createtag() {
+    git tag -a $1
+}
+
+pushtag() {
+    git push origin $1
+}
+
+run_ssim() {
+    myres
+    echo Running command:
+    local latest_file=$(ls -t *.shm | head -1)
+    latest_file=${latest_file::-1}
+    echo $latest_file
+    echo simvision -input $myres/flc_nfc.svcf $latest_file
+    simvision -input $myres/flc_nfc.svcf $latest_file
+}
+
+make_report() {
+    echo myres
+    myres
+    echo urg -mode64 -dir $1 -hier cm_hier_report_filter -elfile ./vcf_unreachable_3m.el -report my_coverage_report -format both -parallel
+    urg -mode64 -dir $1 -hier cm_hier_report_filter -elfile ./vcf_unreachable_3m.el -report my_coverage_report -format both -parallel
+    cd my_coverage_report
+    firefox dashboard.html
+}
+
+lsofd() {
+    "lsof +D $1 | awk '{print $2}' | tail -n +2 | xargs -r kill -9"
+}
+
+gpogerrit() {
+    echo Running command:
+    echo git push origin HEAD:refs/for/$(git rev-parse --abbrev-ref HEAD@{upstream} | sed s/"origin\/"//)
+    git push origin HEAD:refs/for/$(git rev-parse --abbrev-ref HEAD@{upstream} | sed s/"origin\/"//)
+}
+
+gpo() {
+    echo Running command:
+    echo git push origin $(git rev-parse --abbrev-ref HEAD)
+    git push origin $(git rev-parse --abbrev-ref HEAD)
+}
+
+gpof() {
+    echo Running command:
+    echo git push -f origin $(git rev-parse --abbrev-ref HEAD)
+    git push -f origin $(git rev-parse --abbrev-ref HEAD)
+}
+
+grepgit() {
+    echo Running command:
+    echo grep -ri --color $1 $(git rev-parse --git-dir)/../.
+    grep -ri --color $1 $(git rev-parse --git-dir)/../.
+}
+
+gresetorigin() {
+    echo Running command:
+    echo git reset --hard origin/$(git rev-parse --abbrev-ref HEAD@{upstream} | sed s/"origin\/"//)
+    git reset --hard origin/$(git rev-parse --abbrev-ref HEAD@{upstream} | sed s/"origin\/"//)
+}
+
+run_sim() {
+    echo Running command:
+    echo simvision -input $myres/feb*.svcf *$1*
+    simvision -input $myres/feb*.svcf *$1*
+}
+
+fdh() {
+    echo Running command:
+    echo find . -name "$1"
+    find . -name "$1"
+}
+
+grrsv() {
+    find . -name "*.sv" | xargs grep --color $1
+}
+
+grrv() {
+    find . -name "*.v" | xargs grep --color $1
+}
+
+tdump() {
+    # first argument is the name of the directory
+    # second is the name of simulation directory in res folder
+    mydump
+    mkdir $1
+    cd $1
+    cp -r $myres/$2 .
+    cp $mybin/logs.log .
+    echo "Hi Joern, I have placed it here :" >msg.txt
+    pwd >>msg.txt
+    grep UVM_ERROR $mybin/logs.log >>msg.txt
+    echo "To run this simulation after you get access:"
+    grep "Stingray command line:" $mybin/logs.log >>msg.txt
+    echo "---------------------------------------------------------" >>msg.txt
+    echo "This message was automaticall generated through a script." >>msg.txt
+    echo "---------------------------------------------------------" >>msg.txt
+    date >>msg.txt
+    code msg.txt
+}

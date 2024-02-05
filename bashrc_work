@@ -1,0 +1,929 @@
+# source: http://nww.nxdi.nl-htc01.nxp.com/bin/view/NXDI/StartupScripts
+work="riscv"
+if tty -s
+then
+	stty erase ^? intr ^C kill ^U start ^Q stop ^S susp ^Z eof ^D
+	set -o emacs
+
+	# If you do not want bash command completion, comment it out.
+	# It completes file names, host names, env vars, command options.
+	# Please note, it slows down startup of an interactive shell.
+	# More info: http://www.caliban.org/bash/
+	if [[ -z "$BASH_COMPLETION" ]]
+	then
+	        export BASH_COMPLETION=$HOME/bash_completion/bash_completion
+	fi
+	if [[ -f "$BASH_COMPLETION" ]]
+	then
+	        . $BASH_COMPLETION
+	else
+		unset BASH_COMPLETION
+	fi
+
+	export MANWIDTH=90
+	H=$(hostname)
+	# Pick your favorite PS1
+        #export PS1="$LOGNAME@${H%%.*}\$ "
+        export PS1="$LOGNAME@${H%%.nxp.com}\$ "
+	export TERM=${TERM:-xterm}
+	export EDITOR=vi
+ 	export FCEDIT=${EDITOR}
+ 	export SERI_EDITOR=${EDITOR}
+ 	# export PAGER=/cadappl_sde/bin/pager
+
+	# Nijmegen special
+	if [[ -f ${HOME}/.bashrc.user ]]; then . ${HOME}/.bashrc.user; fi
+fi
+
+//////////////////////////////////////
+//////////////////////////////////////
+TOP_DIR="/home/zen-v/users/nxf85776"
+LS_COLORS=$LS_COLORS:'di=1;34;91' ; export LS_COLORS
+alias gotopython="cd /proj/nvm/c402t_hdfc/afahad_nfc/nvm_python_lib"
+alias drunme='pushd /home/eeprom/ccc/nxf85776/svn_proj/c28ssrc/ts_c28ssrc_se;sleep 1;ccc clean se;ccc make se;stty erase ^?; popd; ./run'
+alias runme='simvision -input $myres/luna_se.svcf $myres/*.shm &'
+alias runmel='cd .;sleep 1;./run >& logs.log'
+alias obash='code $HOME/.bashrc &'
+alias onotes='code $HOME/.notes &'
+alias otemp='code ./temp.txt &'
+alias dtemp='rm ./temp.txt'
+alias ostr='code $HOME/stratosphere.txt &'
+alias onote='code $HOME/.notes &'
+alias ovcs='code $HOME/vcs.help &'
+alias obashv='vi $HOME/.bashrc'
+alias onotesv='vi $HOME/.notes'
+alias openbash='code $HOME/.bashrc &'
+alias sbash='source $HOME/.bashrc'
+alias mypackage="cd $TOP_DIR/tb/zen_tb/testbench/packages_v/"
+alias mybin="cd $TOP_DIR"
+alias mydef= "cd $TOP_DIR/tb/zen_tb/testbench/top_defines_v/"
+alias olog='mybin;code logs.log;cd -'
+alias ologs='mybin;code logs.log;cd -'
+alias ologd='mybin;code -d bk_logs.log logs.log;cd -'
+alias ologc='mybin;cp logs.log bk_logs.log;cd -'
+alias sourcebash='source $HOME/.bashrc'
+#######################################
+#General
+#######################################
+alias c='code'
+alias cpr='cp -r'
+alias cdiff='code -d'
+alias killmyp='pkill -U nxf85776'
+alias grepprocess='pgrep -U nxf85776'
+alias showp='ps -ef'
+alias showpm='ps -ef | grep nxf85776'
+alias rmr='rm -r'
+alias ll='ls -lhF --color'
+alias llog='mylog; ls -lhF --color; cd -'
+alias lstim='mystim; ls -lhF --color; cd -'
+alias lla='ls -ahlF --color'
+alias llrt='ls -lhFrt --color'
+alias llart='ls -ahlFrt --color'
+alias llrta='ls -ahlFrt --color'
+alias l='ls -FG --color'
+alias ls='ls -FG --color'
+alias lsa='ls -aFG --color'
+alias lsrt='ls -FGrt --color'
+alias lsart='ls -aFGrt --color'
+alias lsrta='ls -aFGrt --color'
+alias ..='cd ..'
+alias ..ls='cd ..;ls;cd -'
+alias ...='cd ../../'
+alias ....='cd ../../../'
+alias .....='cd ../../../../'
+alias ......='cd ../../../../../'
+alias .......='cd ../../../../../../'
+alias ........='cd ../../../../../../../'
+alias p='pwd'
+alias gv='gvim'
+alias vi='vim'
+alias grephistory='history|grep'
+alias greph='history|grep'
+alias historyg='history|grep'
+alias hg='history|grep'
+alias onetrc='code /home/nxf85776/.netrc'
+alias grepherer="grep -rE --color"
+alias ghere="grep -rE --color"
+alias grr="grep -REi --color"
+alias greperr='grep -ri --color *E'
+alias gres='cat logs.log| grep --color REPORT\ WRITTEN; cat logs.log| grep --color -E TESTS.*=;'
+alias gerr='cat logs.log| grep --color *E'
+alias gerrf="gerr | grep -Eo --color '(\/.*\/)+\w+.sv\w*'"
+alias greperrl='grep -r --color *E logs.log'
+alias greperrl1='grep -r -m 1 --color *E logs.log'
+alias greperrll='grep -r -m 1 --color *E logs.log'
+alias greperrllf="grep -r -m 1 --color *E logs.log | grep -Eo --color '(\/.*\/)+\w+.sv\w*'"
+alias gerrl='grep -r --color *E logs.log'
+alias gerrl1='grep -r -m 1 --color *E logs.log'
+alias gerrll='grep -r -m 1 --color *E logs.log'
+alias gerrllf="grep -r -m 1 --color *E logs.log | grep -Eo --color '(\/.*\/)+\w+.sv\w*'"
+alias gerrllfn="gerrll | grep -Eo --color '([0-9]{0,3})\|' | grep -Eo --color '[0-9]*'"
+alias grepuvmerr='grep -ri --color UVM_ERROR'
+alias guvm='cat logs.log | grep --color UVM_ERROR'
+alias guvmw='cat logs.log | grep --color UVM_WARNING'
+alias grepuvmerrl='grep -ri --color UVM_ERROR >& err.log'
+alias guvmerr='grep -ri --color UVM_ERROR'
+alias guvmerrl='grep -ri --color UVM_ERROR >& err.log'
+#SVN
+alias cse='ccc make se'
+alias ekey='stty erase ^?'
+alias erasekey='stty erase ^?'
+alias makedesign='ccc clean se;ccc make se;stty erase ^?'
+alias maked='ccc clean se;ccc make se;stty erase ^?'
+alias s5='svn log --limit 5'
+alias s10='svn log --limit 10'
+alias ss='svn status'
+alias supdate='svn update'
+alias sdiff='svn diff'
+#GITHUB
+alias bjobsl="bjobs >& jobs.log;code jobs.log"
+alias bkillme="bkill -u nxf85776 0"
+alias gss='git submodule status'
+alias gremove='git restore --staged'
+alias gclean='git clean -xdf'
+alias gp='git push'
+alias gpf='git push -f'
+alias ga='git add'
+alias gau='git add -u '
+alias gaua='git add -u $(git rev-parse --git-dir)/../.'
+alias gpr='git pull --rebase'
+alias gri='git rebase -i HEAD~10'
+alias gpod='git pull origin develop'
+alias gco='git commit'
+alias gnew='git checkout -- .'
+alias gamend='git commit --amend'
+alias gamendn='git commit --amend --no-edit'
+alias gamendnp='git commit --amend --no-edit;git push -f'
+alias gamendnpf='git commit --amend --no-edit;git push -f'
+alias gammend='git commit --amend'
+alias gcommit='git commit'
+alias gf='git fetch'
+alias gfetch='git fetch'
+alias gfa='git fetch --all'
+alias gfetcha='git fetch --all'
+alias gbv='git branch -vv'
+alias gb='git branch'
+alias gb='git rev-parse --abbrev-ref HEAD'
+alias gba='git branch -a'
+alias gbag='git branch -a | grep'
+alias gbav='git branch -av'
+alias glog='git log'
+alias gs='git status'
+alias gsu='git status -uno'
+alias gd='git diff'
+alias gd1file='git diff HEAD~1 > diff1.log;vi diff1.log'
+alias gd1='git diff HEAD~1'
+alias gd2='git diff HEAD~2'
+alias gd2file='git diff HEAD~2 > diff1.log;vi diff1.log'
+alias g5='git log --oneline -5'
+alias g10='git log --oneline -10'
+alias g7='git log --oneline -7'
+alias g6='git log --oneline -6'
+alias gc='git checkout'
+alias gcheckout='git checkout'
+alias grepgb='git branch -va | grep'
+alias gbgrep='git branch -va | grep'
+alias gt='git tag -l'
+alias grepb='git branch -va | grep'
+alias grept='git tag | grep'
+alias grepgt='git tag | grep'
+alias gtgrep='git tag | grep'
+alias gt='git tag'
+alias grc='git rebase --continue'
+alias grh='git reset HEAD'
+alias gst='git stash'
+alias gut='git rm --cached'
+alias runblack='black --skip-string-normalization --line-length 100 .'
+alias checkenv='printenv | grep '
+
+#alias settb="pushd $TOP_DIR;source sray/mysetup zv2750;popd"
+#alias set2001="pushd $TOP_DIR;source sray/mysetup zv2001;popd"
+#alias set2345="pushd $TOP_DIR;source sray/mysetup zv2345;popd"
+#alias set2750="pushd $TOP_DIR;source sray/mysetup zv2750;popd"
+#alias set2790="pushd $TOP_DIR;source sray/mysetup zv2790;popd"
+#alias set2550="pushd $TOP_DIR;source sray/mysetup zv2550;popd"
+#alias source2001="pushd $TOP_DIR;source sray/mysetup zv2001;popd"
+#alias source2345="pushd $TOP_DIR;source sray/mysetup zv2345;popd"
+#alias source2750="pushd $TOP_DIR;source sray/mysetup zv2750;popd"
+#alias source2550="pushd $TOP_DIR;source sray/mysetup zv2550;popd"
+#alias ss2750="pushd $TOP_DIR;source sray/mysetup zv2750;popd"
+#alias ss2550="pushd $TOP_DIR;source sray/mysetup zv2550;popd"
+# Directories
+alias mytop="cd $TOP_DIR/"
+alias mybin="cd $TOP_DIR/"
+alias mytbtop="cd $TOP_DIR/tb/zen_tb/testbench/top_instances_v"
+alias mytbdefines="cd $TOP_DIR/tb/zen_tb/rtl_v/"
+alias myrtldefines="cd $TOP_DIR/blocks/zenv_core/rtl_v"
+alias mytb="cd $TOP_DIR/tb/"
+alias myrtltop="cd $TOP_DIR/blocks/zenv_core/rtl_v/"
+alias myvectors="cd $TOP_DIR/tb/zen_tb/vectors"
+alias mypmp="cd $TOP_DIR/tb/zen_tb/vectors/pmp"
+alias mypmps="cd $TOP_DIR/tb/zen_tb/vectors/pmp/stimulus"
+alias mystim="cd $TOP_DIR/tb/zen_tb/vectors/"
+alias mysanity="cd $TOP_DIR/tb/zen_tb/vectors/sanity/stimulus"
+alias mypmpr="cd $TOP_DIR/tb/zen_tb/vectors/pmp/results"
+alias myrtl="cd $TOP_DIR/blocks/"
+alias myblocks="cd $TOP_DIR/blocks/"
+alias myclass="cd $TOP_DIR/tb/zen_tb/testbench/classes_v"
+alias mylog="cd $TOP_DIR/tb/zen_tb/logfiles/"
+alias myivc="cd $TOP_DIR/tb/global/testbench/drvmon"
+alias mychecker="cd $TOP_DIR/tb/zen_tb/testbench/classes_v"
+alias omychecker="code $TOP_DIR/tb/zen_tb/testbench/classes_v/pmp_checker.sv"
+alias omytbtop="code $TOP_DIR/tb/zen_tb/testbench/top_instances_v/top_uvm.sv"
+alias omytop="code $TOP_DIR/blocks/zenv_core/rtl_v/zenv_core.v"
+alias umytop="dsscontrol $TOP_DIR/tb/zen_tb/testbench/top_instances_v/top_uvm.sv"
+alias ochecker="code $TOP_DIR/tb/zen_tb/testbench/classes_v/pmp_checker.sv"
+alias myepmpc="cd $TOP_DIR/tb/zen_tb/vectors/c_epmp"
+alias myepmpcs="cd $TOP_DIR/tb/zen_tb/vectors/c_epmp/stimulus"
+# Design Sync Commands
+alias polluteme="pi ws -force -bom risc5;pi pop sray;/home/zen-v/bin/pi_risc5_ws -noprompt -bom sray/risc5_super.bom"
+alias poluteme="pi ws -force -bom risc5;pi pop sray;/home/zen-v/bin/pi_risc5_ws -noprompt -bom sray/risc5_super.bom"
+alias ddiff="dssc diff"
+alias dsscin="dssc ci"
+alias din="dssc ci"
+alias dssco="dssc co -l -noc"
+alias dssccontrol="dssc co -l -noc"
+alias dsscontrol="dssc co -l -noc"
+alias dcontrol="dssc co -l -noc"
+alias dsscnew="dssc ci -new"
+alias dnew="dssc ci -new"
+alias dcancel="dssc cancel"
+alias dssccheckout="dssc pop -uni -rec"
+alias dcheckout="dssc pop -uni -rec"
+alias dout="dssc pop -uni -rec"
+alias zenref="pi ws -force -bom risc5; pi pop sray;	/home/zen-v/bin/pi_risc5_ws -noprompt -bom sray/risc5_super.bom"
+alias dstur="dssc ls -locked -changed -rec"
+alias dstu="dssc ls -locked -changed"
+alias dst="dssc ls -report status"
+alias dstatus="dssc ls -report status"
+alias dstatusu="dssc ls -locked -changed"
+alias dsscblame="dssc vhist"
+alias cleans="mypmps; rm zv*"
+## Firing commands
+alias runscrip="tcsh $TOP_DIR/tb/zen_tb/vectors/pmp/stimulus/scrip"
+alias hlog="tcsh -c 'set2750;sray add_zds_to_sim_log -x logs.log > hlogs.log'"
+alias clog="cp $TOP_DIR/logs.log $TOP_DIR/bk_logs.log"
+alias olog="code $TOP_DIR/logs.log"
+alias ohlog="code $TOP_DIR/hlogs.log"
+alias ofire="code $TOP_DIR/run_sim"
+alias oregress="code $TOP_DIR/run_regress"
+alias opat="code $TOP_DIR/tb/zen_tb/tool_data/simenv/suite/r5_passing"
+alias omyregress="code $TOP_DIR/tb/zen_tb/tool_data/simenv/suite/afahad_regress"
+alias unlockpat="dssc co -l $TOP_DIR/tb/zen_tb/tool_data/simenv/suite/r5_passing"
+alias lockpat="dssc ci $TOP_DIR/tb/zen_tb/tool_data/simenv/suite/r5_passing"
+alias firee="pushd $TOP_DIR;sray zengress -f r5_passing -bsub -q shortq -inc -sid zv0000_nodump -roc -w 20 -uvm_tb >& regress.log;popd"
+alias fireeo="pushd $TOP_DIR;code regress.log;sray zengress -f r5_passing -bsub -q shortq -inc -sid zv0000_nodump -roc -w 20 -uvm_tb >& regress.log;popd"
+
+# Verilog format
+alias svformat="verible-verilog-format -flagfile ~/.verilog_format --inplace"
+#######################################
+#Functions
+#######################################
+
+grio () {
+    echo Running command:
+    echo git fetch --all
+    git fetch --all
+    echo git rebase -i origin/$(git rev-parse --abbrev-ref HEAD)
+    git rebase -i origin/$(git rev-parse --abbrev-ref HEAD)
+   }
+
+gpogerrit () {
+     echo Running command:
+     echo git push origin HEAD:refs/for/$(git rev-parse --abbrev-ref HEAD@{upstream} | sed s/"origin\/"//)
+     git push origin HEAD:refs/for/$(git rev-parse --abbrev-ref HEAD@{upstream} | sed s/"origin\/"//)
+   }
+
+gpo () {
+    echo Running command:
+    echo git push origin $(git rev-parse --abbrev-ref HEAD)
+    git push origin $(git rev-parse --abbrev-ref HEAD)
+}
+
+gpof () {
+    echo Running command:
+    echo git push -f origin $(git rev-parse --abbrev-ref HEAD)
+    git push -f origin $(git rev-parse --abbrev-ref HEAD)
+}
+
+gresetorigin () {
+     echo Running command:
+     echo git reset --hard origin/$(git rev-parse --abbrev-ref HEAD@{upstream} | sed s/"origin\/"//)
+     git reset --hard origin/$(git rev-parse --abbrev-ref HEAD@{upstream} | sed s/"origin\/"//)
+   }
+
+grephere() {
+  echo Running command:
+  echo grep -ri --color $1 .
+  grep -ri --color $1 .
+}
+
+grephere.() {
+  echo Running command:
+  echo grep -ri --color $1 ../.
+  grep -ri --color $1 ../.
+}
+
+grephere..() {
+  echo Running command:
+  echo grep -ri --color $1 ../../.
+  grep -ri --color $1 ../../.
+}
+
+grephere...() {
+  echo Running command:
+  echo grep -ri --color $1 ../../../.
+  grep -ri --color $1 ../../../.
+}
+
+grephere....() {
+  echo Running command:
+  echo grep -ri --color $1 ../../../../.
+  grep -ri --color $1 ../../../../.
+}
+
+
+grepgit() {
+  echo Running command:
+  echo grep -ri --color $1 $(git rev-parse --git-dir)/../.
+  grep -ri --color $1 $(git rev-parse --git-dir)/../.
+}
+
+grepherew() {
+  echo Running command:
+  echo grep -wri --color $1 .
+  grep -wri --color $1 .
+}
+
+gg() {
+  if [ $# -eq 2 ]
+  then
+  echo Running command:
+  echo "grep -r --color $1 . | grep $2"
+  grep -r --color $1 . | grep $2
+  elif [ $# -eq 1 ]
+  then
+  echo Running command:
+  echo "grep -r --color $1 ."
+  grep -r --color $1 .
+  else
+   echo Error: Supply atleast one argument
+   fi
+}
+
+gge() {
+  if [ $# -eq 2 ]
+  then
+  echo Running command:
+  echo "grep -r --color $1 . | egrep $2"
+  grep -r --color $1 . | egrep $2
+  elif [ $# -eq 1 ]
+  then
+  echo Running command:
+  echo "grep -r --color $1 ."
+  grep -r --color $1 .
+  else
+   echo Error: Supply atleast one argument
+   fi
+}
+
+getdir() {
+    echo Running command:
+    echo ls -d -1 "$PWD/"$1
+    ls -d -1 "$PWD/"$1
+}
+
+showdir() {
+    echo Running command:
+    echo "$PWD/"$1
+}
+
+sdir() {
+    echo Running command:
+    echo "$PWD/"$1
+}
+
+sedsimple() {
+    echo Running command:
+    echo sed -i 's/'$1'/'$2'/g' $3
+    sed -i 's/'$1'/'$2'/g' $3
+}
+
+sedreg() {
+    echo Running command:
+    echo sed -iE 's/'$1'/'$2'/g' $3
+    sed -iE 's/'$1'/'$2'/g' $3
+}
+
+sedregv() {
+    echo Running command:
+    echo sed -iE 's/'$1'/'$2'/g' *.sv*
+    sed -iE 's/'$1'/'$2'/g' *.sv*
+}
+
+findhere() {
+    echo Running command:
+    echo find . -name "$1"
+    find . -name "$1"
+}
+
+fdh() {
+    echo Running command:
+    echo find . -name "$1"
+    find . -name "$1"
+}
+
+fhere() {
+    echo Running command:
+    echo find . -name "$1"
+    find . -name "$1"
+}
+
+findherels() {
+    echo Running command:
+    echo find . -name "$1" -ls
+    find . -name "$1" -ls
+}
+
+findhered() {
+    echo Running command:
+    echo find . -type d -name "$1"
+    find . -type d -name "$1"
+}
+
+open_error() {
+    temp_file_name=$(grep -r -m 1 --color *E logs.log | grep -Eo --color '(\/.*\/)+\w+.\w*v\w*')
+    temp_file_num=$(gerrll | grep -Eo --color '([0-9]{0,10})\|' | grep -Eo --color '[0-9]*')
+    echo code -g $temp_file_name:$temp_file_num
+    code -g $temp_file_name:$temp_file_num
+}
+
+show_error() {
+    temp_file_name=$(grep -r -m 1 --color *E logs.log | grep -Eo --color '(\/.*\/)+\w+.\w*v\w*')
+    temp_file_num=$(gerrll | grep -Eo --color '([0-9]{0,10})\|' | grep -Eo --color '[0-9]*')
+    echo code -g $temp_file_name:$temp_file_num
+    code -g $temp_file_name:$temp_file_num
+}
+serror() {
+    temp_file_name=$(grep -r -m 1 --color *E logs.log | grep -Eo --color '(\/.*\/)+\w+.\w*v\w*')
+    temp_file_num=$(gerrll | grep -Eo --color '([0-9]{0,10})\|' | grep -Eo --color '[0-9]*')
+    echo code -g $temp_file_name:$temp_file_num
+    code -g $temp_file_name:$temp_file_num
+}
+serr() {
+    temp_file_name=$(grep -r -m 1 --color *E logs.log | grep -Eo --color '(\/.*\/)+\w+.\w*v\w*')
+    temp_file_num=$(gerrll | grep -Eo --color '([0-9]{0,10})\|' | grep -Eo --color '[0-9]*')
+    echo code -g $temp_file_name:$temp_file_num
+    code -g $temp_file_name:$temp_file_num
+}
+
+serrsemi() {
+    temp_file_name=$(grep -r -m 1 --color *E logs.log | grep -Eo --color '(\/.*\/)+\w+.\w*v\w*')
+    temp_file_num=$(gerrll | grep -Eo --color '([0-9]{0,10})\|' | grep -Eo --color '[0-9]*')
+    echo code -g $temp_file_name:$temp_file_num
+    # Add the semicolon to the specified line
+    echo sed -i "${temp_file_num}s/$/;/" "$temp_file_name"
+    sed -i "${temp_file_num}s/$/;/" "$temp_file_name"
+}
+
+findheredls() {
+    echo Running command:
+    echo find . -type d -name "$1" -ls
+    find . -type d -name "$1" -ls
+}
+
+#findherer() {
+#    echo Running command:
+#    echo find -regex .  -name  "$1"
+#    find -maxdepth 1 -regex . -name  "$1"
+#}
+makenote() {
+    echo Running command:
+    echo $@ >& note.txt
+    $@ >& note.txt
+}
+
+grbranch() {
+    echo Running command:
+    echo git rebase -i $(git rev-parse --abbrev-ref HEAD) $1
+    git rebase -i $(git rev-parse --abbrev-ref HEAD) $1
+}
+
+gbtrack() {
+    echo Running command:
+    echo git branch -u $1
+    git branch -u $1
+}
+
+gn() {
+    echo Running command:
+    if [ $# -eq 1 ]
+    then
+    echo git log --oneline -$1
+    git log --oneline -$1
+    else
+    echo git log --oneline
+    git log --oneline
+    fi
+}
+
+gcount(){
+    if [ $# -eq 2 ]
+    then
+    echo Running command:
+    echo grep -i -cn --color $1 $2
+    grep -i -cn --color $1 $2
+    else
+        echo Error: Supply atleast one argument
+    fi
+}
+alias gcom='echo "enter commit message : " && read MSG && git commit -m "$MSG"'
+
+delexcept(){
+find . -type f ! -name '$1' -delete
+}
+
+gpurep(){
+    git reflog | grep ssh.*
+}
+
+createtag(){
+    git tag -a $1
+}
+
+pushtag(){
+    git push origin $1
+}
+
+run_sim(){
+    echo Running command:
+    echo simvision -input $myres/feb*.svcf *$1*
+    simvision -input $myres/feb*.svcf *$1*
+}
+
+# FOR LUNA
+#run_ssim(){
+#    myres
+#    echo Running command:
+#    local  latest_file=$(ls -t *.shm | head -1)
+#    latest_file=${latest_file::-1}
+#    echo $latest_file
+#    echo simvision -input $myres/feb*.svcf $latest_file
+#    simvision -input $myres/feb*.svcf $latest_file
+#}
+
+run_ssim(){
+    myres
+    echo Running command:
+    local  latest_file=$(ls -t *.shm | head -1)
+    latest_file=${latest_file::-1}
+    echo $latest_file
+    echo simvision -input $myres/flc_nfc.svcf $latest_file
+    simvision -input $myres/flc_nfc.svcf $latest_file
+}
+
+make_report(){
+    echo myres
+    myres
+    echo urg -mode64 -dir $1 -hier cm_hier_report_filter  -elfile ./vcf_unreachable_3m.el -report my_coverage_report -format both -parallel
+    urg -mode64 -dir $1 -hier cm_hier_report_filter  -elfile ./vcf_unreachable_3m.el -report my_coverage_report -format both -parallel
+    cd my_coverage_report
+    firefox dashboard.html
+}
+
+grrsv(){
+    find . -name "*.sv" | xargs grep --color $1
+}
+
+grrv(){
+    find . -name "*.v" | xargs grep --color $1
+}
+
+serrsemi() {
+    temp_file_name=$(grep -r -m 1 --color *E logs.log | grep -Eo --color '(\/.*\/)+\w+.\w*v\w*')
+    temp_file_num=$(gerrll | grep -Eo --color '([0-9]{0,10})\|' | grep -Eo --color '[0-9]*')
+    echo code -g $temp_file_name:$temp_file_num
+    # Add the semicolon to the specified line
+    echo sed -i "${temp_file_num}s/$/;/" "$temp_file_name"
+    sed -i "${temp_file_num}s/$/;/" "$temp_file_name"
+}
+
+findheredls() {
+    echo Running command:
+    echo find . -type d -name "$1" -ls
+    find . -type d -name "$1" -ls
+}
+
+#findherer() {
+#    echo Running command:
+#    echo find -regex .  -name  "$1"
+#    find -maxdepth 1 -regex . -name  "$1"
+#}
+makenote() {
+    echo Running command:
+    echo $@ >& note.txt
+    $@ >& note.txt
+}
+
+grbranch() {
+    echo Running command:
+    echo git rebase -i $(git rev-parse --abbrev-ref HEAD) $1
+    git rebase -i $(git rev-parse --abbrev-ref HEAD) $1
+}
+
+gbtrack() {
+    echo Running command:
+    echo git branch -u $1
+    git branch -u $1
+}
+
+gn() {
+    echo Running command:
+    if [ $# -eq 1 ]
+    then
+    echo git log --oneline -$1
+    git log --oneline -$1
+    else
+    echo git log --oneline
+    git log --oneline
+    fi
+}
+
+gcount(){
+    if [ $# -eq 2 ]
+    then
+    echo Running command:
+    echo grep -i -cn --color $1 $2
+    grep -i -cn --color $1 $2
+    else
+        echo Error: Supply atleast one argument
+    fi
+}
+alias gcom='echo "enter commit message : " && read MSG && git commit -m "$MSG"'
+
+delexcept(){
+find . -type f ! -name '$1' -delete
+}
+
+gpurep(){
+    git reflog | grep ssh.*
+}
+
+createtag(){
+    git tag -a $1
+}
+
+pushtag(){
+    git push origin $1
+}
+
+run_sim(){
+    echo Running command:
+    echo simvision -input $myres/feb*.svcf *$1*
+    simvision -input $myres/feb*.svcf *$1*
+}
+
+# FOR LUNA
+#run_ssim(){
+#    myres
+#    echo Running command:
+#    local  latest_file=$(ls -t *.shm | head -1)
+#    latest_file=${latest_file::-1}
+#    echo $latest_file
+#    echo simvision -input $myres/feb*.svcf $latest_file
+#    simvision -input $myres/feb*.svcf $latest_file
+#}
+
+run_ssim(){
+    myres
+    echo Running command:
+    local  latest_file=$(ls -t *.shm | head -1)
+    latest_file=${latest_file::-1}
+    echo $latest_file
+    echo simvision -input $myres/flc_nfc.svcf $latest_file
+    simvision -input $myres/flc_nfc.svcf $latest_file
+}
+
+make_report(){
+    echo myres
+    myres
+    echo urg -mode64 -dir $1 -hier cm_hier_report_filter  -elfile ./vcf_unreachable_3m.el -report my_coverage_report -format both -parallel
+    urg -mode64 -dir $1 -hier cm_hier_report_filter  -elfile ./vcf_unreachable_3m.el -report my_coverage_report -format both -parallel
+    cd my_coverage_report
+    firefox dashboard.html
+}
+
+grrsv(){
+    find . -name "*.sv" | xargs grep --color $1
+}
+
+grrv(){
+    find . -name "*.v" | xargs grep --color $1
+}
+
+
+tdump(){
+    # first argument is the name of the directory
+    # second is the name of simulation directory in res folder
+    mydump
+    mkdir $1
+    cd $1
+    cp -r $myres/$2 .
+    cp $mybin/logs.log .
+    echo "Hi Joern, I have placed it here :" > msg.txt
+    pwd >> msg.txt
+    grep UVM_ERROR $mybin/logs.log >> msg.txt
+    echo "To run this simulation after you get access:"
+    grep "Stingray command line:" $mybin/logs.log >> msg.txt
+    echo "---------------------------------------------------------" >> msg.txt
+    echo "This message was automaticall generated through a script." >> msg.txt
+    echo "---------------------------------------------------------" >> msg.txt
+    date >> msg.txt
+    code msg.txt
+}
+
+lsofd(){
+    "lsof +D $1 | awk '{print $2}' | tail -n +2 | xargs -r kill -9"
+}
+
+printf '\033[6 q'
+git config --global color.ui auto
+
+ekey
+
+fireh () {
+    pushd $TOP_DIR;
+    $TOP_DIR/run_sim zv$1;
+    hlog;
+    popd
+}
+
+fire () {
+    pushd $TOP_DIR;
+    $TOP_DIR/run_sim zv$1;
+    popd
+}
+
+fireo () {
+    pushd $TOP_DIR;
+    code logs.log;
+    $TOP_DIR/run_sim zv$1;
+    popd
+}
+
+fireod () {
+    pushd $TOP_DIR;
+    code -d logs.log bk_logs.log;
+    $TOP_DIR/run_sim zv$1;
+    popd
+}
+
+firecod () {
+    pushd $TOP_DIR;
+    cp logs.log bk_logs.log;
+    code -d logs.log bk_logs.log;
+    $TOP_DIR/run_sim zv$1;
+    popd
+}
+
+fireocd () {
+    pushd $TOP_DIR;
+    cp logs.log bk_logs.log;
+    code -d logs.log bk_logs.log;
+    $TOP_DIR/run_sim zv$1;
+    popd
+}
+
+fireod () {
+    pushd $TOP_DIR;
+    code -d logs.log bk_logs.log;
+    $TOP_DIR/run_sim zv$1;
+    popd
+}
+
+fireemyregress (){
+    pushd $TOP_DIR;
+    $TOP_DIR/run_regress zv$1;
+    popd
+}
+
+fmr (){
+    pushd $TOP_DIR;
+    $TOP_DIR/run_regress zv$1;
+    popd
+}
+
+fmrl (){
+    pushd $TOP_DIR;
+    $TOP_DIR/run_regress zv$1 >& logs.log;
+    popd
+}
+
+fireemyregressall() {
+    fireemyregress 2550;
+    fireemyregress 2750;
+    fireemyregress 2258;
+    fireemyregress 2001;
+    fireemyregress 2345;
+    fireemyregress 2345
+}
+
+fmra() {
+    mybin;fireemyregressall
+}
+
+fmral() {
+    mybin;fireemyregressall >& logs.log;
+}
+
+fmrla() {
+    mybin;fireemyregressall >& logs.log;
+}
+if [ "$work" == "nvm" ]; then
+#######################################
+#NVM WORK RELATED
+#######################################
+alias delcov="myres;rm -r *cov*"
+alias mygen="myseq;cd seq_gen"
+alias rmrc="myres;rm -r *coverage*"
+alias mychecker="mytb; cd classes_v/checker_functions/"
+alias ocmdlib="mytb; code classes_v/cmd_lib/flc_cmd_base_seq.svh; cd -"
+alias omemtoolkit="mytb; code classes_v/flc_mem_toolkit.sv; cd -"
+alias obseq="myseq; code flc_se_base_seq.sv; cd -"
+alias oregress="mybin; code regress.log; cd -"
+alias oregressd="mybin; code -d bk_regress.log regress.log; cd -"
+alias oregressc="mybin; cp regress.log bk_regress.log; cd -"
+alias hrun="python3 $mybin/hb_error_parser.py --all"
+alias ohrun="mybin; code ./hb_error_parser.py; cd -"
+alias fireenightly="bkill -u nxf85776 0;mybin; ./nightly_run; cd-"
+alias ofireenightly="mybin; code ./nightly_run; cd-"
+alias lrun="python3 $mybin/nvm_linter.py -p . --all "
+alias lrun_uvm="python3 $mybin/nvm_linter.py -p . --all --uvm"
+alias lrun_lint="python3 $mybin/nvm_linter.py -p . --all --lint"
+alias rtsrun="python3 $mybin/remove_trailing_spaces.py"
+alias lrunall="python3 $mybin/nvm_linter.py --all"
+alias olrun="mybin; code ./log_converter.py; cd -"
+alias umyblocks="pushd;myblocks;dssc setvault sync://sync-15046:15046/Projects/nvm_ssrc/blocks .;dssc url vault .;dssc pop -uni -rec -force;popd"
+alias urtl="pushd;myblocks;dssc setvault sync://sync-15046:15046/Projects/nvm_ssrc/blocks .;dssc url vault .;dssc pop -uni -rec -force;popd"
+alias uverif="pushd .;echo updating $mytb/../../. ;cd $mytb/../../.;git pull origin develop;cd $mytb/../../../nvm_ecc_vip;echo updating $mytb/../../../nvm_ecc_vip;git pull origin develop;cd $mytb/../../../c28_luna_common;echo updating $mytb/../../../c28_luna_common;git pull origin develop; popd;"
+alias cresource="lsof +D /home/nvm_ssr/ssrc/afahad_workspace//c28_luna_se/luna_se_tb/tool_data/vcs/"
+alias clearres="lsof +D /home/nvm_ssr/ssrc/afahad_workspace//c28_luna_se/luna_se_tb/tool_data/vcs/"
+alias clearresource="lsof +D /home/nvm_ssr/ssrc/afahad_workspace//c28_luna_se/luna_se_tb/tool_data/vcs/"
+alias mydump="cd /home/nvm_ssr/ssrc/temp_dump/"
+alias myrtl="cd /home/nvm_ssr/ssrc/afahad_workspace/c28_luna_se/blocks/nvm_3m_c28ssrc_se_nxds/RTL/"
+alias fireo="mybin; code logs.log; gmake clean; ./afahad_run; cd -"
+alias fireod="mybin; code -d bk_logs.log logs.log; gmake clean; ./afahad_run; cd -"
+alias fireocd="mybin; cp logs.log bk_logs.log; code -d bk_logs.log logs.log; gmake clean; ./afahad_run; cd -"
+alias fireoc="mybin; cp logs.log bk_logs.log; code logs.log; gmake clean; ./afahad_run; cd -"
+alias fire="mybin; gmake clean; ./afahad_run; cd -"
+alias firemul="mybin; gmake clean; ./afahad_run_mul; cd -"
+alias firevcs="mybin; gmake clean; ./afahad_run_vcs; cd -"
+alias firec="mybin; cp logs.log bk_logs.log; gmake clean; ./afahad_run; cd -"
+alias firee="bkill -u nxf85776 0;mybin; ./afahad_regress; cd -"
+alias fireecov="bkill -u nxf85776 0;mybin; ./afahad_regressc; cd -"
+alias ofire="mybin; code ./afahad_run"
+alias ofiremul="mybin; code ./afahad_run_mul"
+alias ofiree="mybin; code ./afahad_regress; cd -"
+alias ofireecov="mybin; code ./afahad_regressc; cd -"
+alias fireemysmoke="bkill -u nxf85776 0;mybin; ./my_smoke; cd -"
+alias runmysmoke="bkill -u nxf85776 0;mybin; ./my_smoke; cd -"
+alias ofireemysmokes="mystim; code ./afahad.smoke; cd -"
+alias ofireemysmoke="mybin;code ./my_smoke; cd -"
+alias fireesmoke="mybin; ./smoke; cd -"
+alias ofireesmoke="mybin; code ./smoke; cd -"
+alias ofireesmokes="mystim; code ./pat_list.smoke; cd -"
+alias ofireemyregress="mybin; code ./my_regress; cd -"
+alias ofireemyregressc="mybin; code ./my_regressc; cd -"
+alias fireemyregress="bkill -u nxf85776 0;mybin; ./my_regress; cd -"
+alias fireemyregressc="bkill -u nxf85776 0;mybin; ./my_regressc; cd -"
+alias ofireemyregresss="mystim; code ./afahad.regress; cd -"
+alias ofirevcs="mybin; code ./afahad_run_vcs"
+alias gototb='cd /home/nvm_ssr/ssrc/afahad_workspace/'
+alias gtb='cd /home/nvm_ssr/ssrc/afahad_workspace/'
+alias ssme='pushd /home/nvm_ssr/ssrc/afahad_workspace/c28_luna_se/luna_se_tb/bin; source setup_file.txt; popd; export CADENV_HOME=/home/nxa18790; export PATH=/pkg/fs-foundation-/dynamic/bin:/run/pkg/foundation-/frame/bin:$PATH;'
+alias gotossrc='cd /home/nvm_ssr/ssrc'
+alias e1='eeprom 1'
+alias gncd='cd /home/eeprom/ccc/nxf85776/svn_proj/c28ssrc/ts_c28ssrc_se/TESTBENCH'
+alias gotodesign='cd /home/eeprom/ccc/nxf85776/svn_proj/c28ssrc/ts_c28ssrc_se/TESTBENCH'
+alias gotod='cd /home/eeprom/ccc/nxf85776/svn_proj/c28ssrc/ts_c28ssrc_se/TESTBENCH'
+alias gncv='cd /home/eeprom/ccc/nxf85776/data/id_sp2_block_rs_lib/nvm_4m_c28ssrc_se/nccoex'
+alias gotov='cd /home/eeprom/ccc/nxf85776/data/id_sp2_block_rs_lib/nvm_4m_c28ssrc_se/nccoex'
+alias gotoverification='cd /home/eeprom/ccc/nxf85776/data/id_sp2_block_rs_lib/nvm_4m_c28ssrc_se/nccoex'
+alias ofirees="mystim; code pat_list.comp; cd -"
+alias ofireenightlys="mystim; code pat_list.regress; cd -"
+alias ofireemysmokes="mystim; code afahad.smoke; cd -"
+alias bsimvt='bsub -Is simvision rundir_rtl_func_oob/traces/ &'
+#alias bsimvt='bsub -Is simvision rundir_rtl_func_oob/traces/ &;simvision -input /home/eeprom_workareas/ccc/nxf85776/data/id_sp2_block_rs_lib/simvision_luna.svcf'
+#alias bsimv='bsub -Is simvision &;simvision -input /home/eeprom_workareas/ccc/nxf85776/data/id_sp2_block_rs_lib/simvision_luna.svcf'
+#alias bsimv='bsub -Is simvision &;simvision -input /home/eeprom_workareas/ccc/nxf85776/data/id_sp2_block_rs_lib/simvision_luna.svcf'
+alias cad='cadenv'
+alias eeprom='/home/eeprom/bin/setup.project'
+alias llrt='ls -l -rt'
+alias ccc='/home/eeprom/ccc/$USER/svn_proj/ccc/bin/ccc'
+export PATH=.:$PATH
+alias settb='cd /home/eeprom/ccc/nxf85776/data/id_sp2_block_rs_lib/nvm_4m_c28ssrc_se/nccoex;. cadenv_home2 test.nvm_4m_c28ssrc_se'
+pushd /home/nvm_ssr/ssrc/afahad_workspace/c28_luna_se/luna_se_tb/bin; source setup_file.txt; popd;
+export CADENV_HOME=/home/nxa18790;
+export PATH=/pkg/fs-foundation-/dynamic/bin:/run/pkg/foundation-/frame/bin:$PATH;
+#pushd /proj/nvm/c402t_hdfc/afahad_nfc/c402t_hdfc_nfc/volta_nfc_tb/bin; source setup_file.txt; popd;
+`end

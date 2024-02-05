@@ -1,0 +1,56 @@
+
+#######################################
+# ALIAS- Personal Mac
+#######################################
+alias pythonconda='/opt/anaconda3/bin/python'
+alias pythonc='/opt/anaconda3/bin/python'
+alias pyc='/opt/anaconda3/bin/python'
+alias obash='code $HOME/.bash_profile'
+alias obashv='vi $HOME/.bash_profile'
+alias openbash='code $HOME/.bash_profile'
+alias sbash='source $HOME/.bash_profile'
+alias sourcebash='source $HOME/.bash_profile'
+alias ostr='code $HOME/stratosphere.txt'
+alias onote='code $HOME/.notes'
+alias openbash='code $HOME/.bash_profile'
+alias mydoc='cd $HOME/Documents/'
+alias mydesk='cd $HOME/Desktop/'
+alias mydown='cd $HOME/Downloads/'
+alias mygit='cd $HOME/Documents/github'
+alias mybashlib='cd $HOME/Documents/github/bashrc'
+alias mypdfmerge="$HOME/Google\ Drive/My\ Drive/scripts/pdf_merger.py"
+alias mydrive="cd $HOME/Google\ Drive/My\ Drive/"
+alias mycom="cd $HOME/Google\ Drive/My\ Drive/Combined\ Documents/"
+alias mystaging="cd $HOME/Google\ Drive/My\ Drive/Staging\ area"
+alias mywork="cd $HOME/Google\ Drive/My\ Drive/Workspaces"
+alias myscripts="cd $HOME/Google\ Drive/My\ Drive/Scripts"
+alias myapplications="cd $HOME/Google\ Drive/My\ Drive/Applications\ and\ claims"
+alias mymanager="cd $HOME/Google\ Drive/My\ Drive/Scripts/file_manager"
+alias mydrivedoc="cd $HOME/Google\ Drive/My\ Drive/Personal\ Documents/"
+alias mygerman="cd $HOME/Google\ Drive/My\ Drive/Workspaces/Deutsch\ Lernen/"
+# File Mover
+alias fireo="mymanager;make mv_staging;code logs.log"
+alias fire="mymanager;make mv_staging"
+alias fired="mymanager;make fd_staging"
+alias olog="mymanager;code logs.log"
+
+git config --global color.ui auto
+eval "$(/opt/homebrew/bin/brew shellenv)"
+
+# >>> conda initialize >>>
+# !! Contents within this block are managed by 'conda init' !!
+__conda_setup="$('$HOME/miniforge3/bin/conda' 'shell.bash' 'hook' 2> /dev/null)"
+if [ $? -eq 0 ]; then
+    eval "$__conda_setup"
+else
+    if [ -f "$HOME/miniforge3/etc/profile.d/conda.sh" ]; then
+        . "$HOME/miniforge3/etc/profile.d/conda.sh"
+    else
+        export PATH="$HOME/miniforge3/bin:$PATH"
+    fi
+fi
+unset __conda_setup
+# <<< conda initialize <<<
+PS1='\[\033[1;37m\]\u\[\033[1;31m\]@\[\033[1;31m\]\h:\[\033[1;37m\]\w\[\033[1;31m\]\$\[\033[0m\] '
+
+PATH=$PATH:~/opt/bin
